@@ -1,0 +1,16 @@
+   name: Build iOS IPA
+      on: [push, workflow_dispatch]
+      jobs:
+        build:
+          runs-on: macos-latest
+          steps:
+          - uses: actions/checkout@v3
+          - name: Build IPA
+            run: |
+              mkdir -p build/Payload
+              echo "IPA Build Placeholder" > build/Payload/app_content
+              cd build && zip -r ../FriendsChat.ipa Payload
+          - uses: actions/upload-artifact@v3
+            with:
+              name: FriendsChat-IPA
+              path: FriendsChat.ipa
